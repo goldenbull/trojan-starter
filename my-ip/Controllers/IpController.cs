@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace my_ip.Controllers
@@ -17,7 +18,9 @@ namespace my_ip.Controllers
         [HttpGet]
         public string Get()
         {
-            return HttpContext.Connection.RemoteIpAddress?.MapToIPv4().ToString();
+	    var ipstr = HttpContext.Connection.RemoteIpAddress?.MapToIPv4().ToString();
+            Console.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff} {ipstr}");
+            return ipstr;
         }
     }
 }
