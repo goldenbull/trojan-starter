@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Net.Http.Headers;
 using System.Text;
 using Microsoft.AspNetCore.Builder;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
@@ -44,6 +46,12 @@ namespace my_ip
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(env.ContentRootPath, "static")),
+                RequestPath = "/4dsHHDVfd8JmWcj2xS9N"
+            });
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
